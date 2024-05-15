@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Project-0';
+
+  public layoutMode: boolean;
+
+
+  constructor() {
+    this.layoutMode = true;
+    this.onChangeMode();
+  }
+
+  onChangeMode() {
+    let mode = this.layoutMode ? 'dark' : 'light';
+    const body = document.body as HTMLElement;
+    body.setAttribute('data-bs-theme', mode);
+  }
 }
