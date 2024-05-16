@@ -1,9 +1,11 @@
 <div class="container-body">
-  <div class="d-flex flex-row justify-content-center">
+  <div class="d-flex flex-row justify-content-center pb-3">
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="layoutmode" (change)="onChangeMode()" [(ngModel)]="layoutMode">
+      <input class="form-check-input" type="checkbox" role="switch" id="layoutmode" (change)="onChangeMode()"
+        [(ngModel)]="layoutMode">
       <label class="form-check-label" for="layoutmode">Dark Mode</label>
     </div>
   </div>
   <router-outlet></router-outlet>
+  <ngx-ui-loader></ngx-ui-loader>
 </div>
