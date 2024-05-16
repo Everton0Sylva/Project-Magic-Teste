@@ -1,1 +1,95 @@
-teste
+<div class="views-container">
+    <ngx-ui-loader [loaderId]="'loader-booster'" [fgsType]="spinner" [text]="'Abrindo os Boosters'"></ngx-ui-loader>
+
+
+
+    <div class="d-flex flex-column align-items-center" [ngSwitch]="currentStep">
+        <h2 class="text-muted mt-3 mb-5">{{currentStep == 4 ? "Sem Dados par Exibir" :
+            currentStep == 0 ? "Pesquisar" :
+            currentStep == 1 ? "Resultado" :
+            "As cartas do Pacote aberto são" }}</h2>
+
+
+            <div class="d-flex flex-row align-items-center justify-content-center" *ngSwitchCase="4">
+
+                <button type="button" class="btn btn-outline-danger" (click)="currentStep = 0">
+                    <i class="bi bi-arrow-left-square-fill me-2"></i>Voltar</button>
+
+            </div>
+        <div class="d-flex flex-row gap-5" *ngSwitchCase="0">
+
+            <div class="form-floating mb-3">
+                <input type="name" class="form-control" id="nameInput" placeholder="nome"
+                    [(ngModel)]="currentSearch.Name">
+                <label for="nameInput">Nome</label>
+            </div>
+
+            <div class="btn-group-vertical" role="group" aria-label="blocks">
+                <input type=" radio" class="btn-check" name="btnradio" id="btnradioD" autocomplete="off" disabled>
+                <label class="btn btn-outline-secondary active" for="btnradioD">Blocos</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="amonkhet" [(ngModel)]="currentSearch.Block"
+                    value="amonkhet" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="amonkhet">Amonkhet</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="ixalan" [(ngModel)]="currentSearch.Block"
+                    value="ixalan" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="ixalan">Ixalan</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="zendikar" [(ngModel)]="currentSearch.Block"
+                    value="zendikar" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="zendikar">Zendikar</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="ravnica" [(ngModel)]="currentSearch.Block"
+                    value="ravnica" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="ravnica">Ravnica</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="onslaught" [(ngModel)]="currentSearch.Block"
+                    value="onslaught" autocomplete="off">
+                <label class="btn btn-outline-secondary" for="onslaught">Onslaught</label>
+            </div>
+
+            <div class="col-2">
+                <button type="button" class="btn btn-info" (click)="onSearch()">Buscar</button>
+            </div>
+        </div>
+
+        <div class="mx-5" *ngSwitchCase="1">
+            <div class="row row-cols-3 gx-5 gy-3">
+                <div class="col" *ngFor="let boost of listBoosters; let idx = index">
+                    <div class="card cursor-pointer" (click)="onSelectBooster(boost)">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-start">
+                                <h3 class="text-secondary">{{boost.Block}}</h3>
+                                <h6 class="text-info">{{boost.Name}}</h6>
+                                <span class="badge badge-secondary align-self-end p-3 
+                    text-dark-emphasis border border-dark-subtle mt-5">
+                                    {{boost.ReleaseDate | date:'dd/MM/yyyy'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mx-5" *ngSwitchCase="2">
+            <div class="row row-cols-3 g-3">
+                <div class="col" *ngFor="let card of listCards; let idx = index">
+                    <div class="card bg-dark-subtle">
+                        <div class="card-body">
+                            <div class="d-flex flex-row gap-3 align-items-center magic-card">
+                                <img class="img" [src]="card.ImageUrl" alt="card.ImageUrl">
+                                <div class="d-flex flex-column g-3 col-8 text-wrap">
+                                    <span class="title">{{card.Name}}</span>
+                                    <span class="text">{{card.ManaCost}}</span>
+                                    <span class="text">{{card.Text}}</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
